@@ -18,3 +18,11 @@ def createRow(n, classes):
         base[x:x+6,2] -= 1.5
     base += np.random.rand(*base.shape)*.2
     return base
+
+def create_dataset(n):
+    xl, yl = [], []
+    for _ in range(n):
+        cl = np.random.rand(5)<.25
+        xl.append(createRow(np.random.randint(40,60), cl))
+        yl.append(cl)
+    return xl,yl

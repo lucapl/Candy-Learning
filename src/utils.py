@@ -4,21 +4,21 @@ import tensorflow as tf
 
 def visualize(history: tf.keras.callbacks.History):
 	"""plots the history of neural networks training"""
-    plt.plot(history.history['binary_accuracy'])
-    plt.plot(history.history['val_binary_accuracy'])
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'validation'], loc='upper left')
-    plt.show()
+	plt.plot(history.history['binary_accuracy'])
+	plt.plot(history.history['val_binary_accuracy'])
+	plt.title('model accuracy')
+	plt.ylabel('accuracy')
+	plt.xlabel('epoch')
+	plt.legend(['train', 'validation'], loc='upper left')
+	plt.show()
 
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'validation'], loc='upper left')
-    plt.show()
+	plt.plot(history.history['loss'])
+	plt.plot(history.history['val_loss'])
+	plt.title('model loss')
+	plt.ylabel('loss')
+	plt.xlabel('epoch')
+	plt.legend(['train', 'validation'], loc='upper left')
+	plt.show()
 
 def plot_sensors(xl,yl,first=5):
 	''' Plot the graph of the sensors '''
