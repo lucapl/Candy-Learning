@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 
 def visualize(history: tf.keras.callbacks.History):
-	''' plots the history of neural networks training'''
+	"""plots the history of neural networks training"""
     plt.plot(history.history['binary_accuracy'])
     plt.plot(history.history['val_binary_accuracy'])
     plt.title('model accuracy')
@@ -11,7 +11,7 @@ def visualize(history: tf.keras.callbacks.History):
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
     plt.show()
-    # summarize history for loss
+
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
     plt.title('model loss')
@@ -27,7 +27,7 @@ def plot_sensors(xl,yl,first=5):
 		plt.legend([f'sensors {i}' for i in range(3)])
 		print(yl[i])
 		plt.show()
-		
+
 def compare_sensors(x_pred,x_true,cl,mask,first=5):
 	''' Compare the output of the autoencoder with the input '''
 	for i in range(first):
