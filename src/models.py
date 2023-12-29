@@ -19,8 +19,8 @@ def create_encoder(timesteps,features,labels,lr=0.001,device = 'CPU'):
 		model = Sequential()
 
 		model.add(Masking(mask_value=-2,input_shape=(timesteps,features)))
-		model.add(GRU(32, input_shape=(None, features),return_sequences=True))
-		model.add(GRU(8, input_shape=(None, features)))
+		model.add(GRU(64, input_shape=(None, features),return_sequences=True))
+		model.add(GRU(32, input_shape=(None, features)))
 		model.add(Dense(128,activation="relu"))
 		model.add(Dropout(0.4))
 		model.add(BatchNormalization(axis=1))
