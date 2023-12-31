@@ -73,7 +73,14 @@ def plot_sensor_comparison(predictions: list[np.ndarray],
     """
     for i in range(n):
         target = targets[i].astype(bool)
-        print(target)
+
+        if not target.any():
+            print('no defects')
+        else:
+            for j in range(5):
+                if target[j]:
+                    print(f'defect {j + 1}', end=' ')
+
         legend = [f'predicted sensor {j}' for j in range(3)] + [f'true sensor {j}' for j in range(3)]
         plt.plot(predictions[i][mask[i]])
         plt.plot(inputs[i][mask[i]])

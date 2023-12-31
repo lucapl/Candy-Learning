@@ -1,3 +1,5 @@
+import numpy as np
+import tensorflow as tf
 from keras.layers import GRU, Dense, Dropout, BatchNormalization, Masking, TimeDistributed
 from keras.models import Sequential
 
@@ -59,3 +61,38 @@ def create_autoencoder(time_steps: int, features: int, labels: int) -> Sequentia
 	model.add(TimeDistributed(Dense(features)))
 
 	return model
+
+
+def get_autoencoder_predictions(autoencoder: Sequential, inputs: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+	"""
+	Returns the predictions of the autoencoder model.
+
+	:param autoencoder: The autoencoder model.
+	:type autoencoder: keras.models.Sequential
+	:param inputs: The input data.
+	:type inputs: np.ndarray
+
+	"""
+	predictions = autoencoder.predict(inputs)
+	masking_layer = Masking(mask_value=-2)
+	masking_embeddings = masking_layer(inputs)
+	mask = masking_embeddings._keras_mask
+	predictions[~mask] = -2
+	return predictions, mask
+
+
+def get_error(autoencoder: Sequential, inputs: np.ndarray) -> list[np.ndarray]:
+	"""
+	Returns the mean square error of the autoencoder model.
+
+	:param autoencoder: The autoencoder model.
+	:type autoencoder: keras.models.Sequential
+	:param inputs: The input data.
+	:type inputs: np.ndarray
+
+	:returns: The mean absolute error of the autoencoder model for each sensor.
+	:rtype: tuple[np.ndarray, np.ndarray, np.ndarray]
+	"""
+	predictions, _ = get_autoencoder_predictions(autoencoder, inputs)
+	losses = [tf.keras.losses.mse(inputs[:, :, i], predictions[:, :, i]) for i in range(3)]
+	return losses
